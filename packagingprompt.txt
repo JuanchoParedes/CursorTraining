@@ -1,0 +1,27 @@
+app/
+|---articles/
+|   |---data/
+|   |   |---ArticleApi
+|   |   |---ArticleData
+|   |   |---ArticleRepository
+|   |   
+|   |---presentation/
+|   |   |---ArticleViewModel
+|   |   |---ArticleUIState
+|   |   |---Article
+|   |---ui/
+|   |   |---ArticleScreen
+|   |
+|---sources/
+|   |---data/
+|   |   |---Sourcepi
+|   |   |---SourceData
+|   |   |---SourceRepository
+|   |   
+|   |---presentation/
+|   |   |---SourceViewModel
+|   |   |---SourceUIState
+|   |   |---Source
+|   |---ui/
+|   |   |---SourceeScreen
+
