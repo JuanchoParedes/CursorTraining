@@ -1,5 +1,7 @@
 package com.example.cursortraining.articles.presentation
 
-data class ArticleUIState(
-    val isLoading: Boolean = false,
-)
+sealed interface ArticleUIState {
+    data object Loading : ArticleUIState
+    data class Success(val articles: List<Article>) : ArticleUIState
+    data class Error(val message: String) : ArticleUIState
+}
