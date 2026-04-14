@@ -5,7 +5,7 @@ import retrofit2.http.Query
 
 interface ArticleApi {
 
-    @GET("top-headlines&category=business")
+    @GET("top-headlines?category=business")
     suspend fun getTopHeadlines(
         @Query("country") country: String,
         @Query("apiKey") apiKey: String,

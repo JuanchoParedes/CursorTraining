@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CursorTraining</string>
+    <string name="articles_title">Articles</string>
+    <string name="articles_retry">Retry</string>
+    <string name="articles_empty">No articles to show.</string>
+    <string name="article_image_content_description">Image for article: %1$s</string>
 </resources>

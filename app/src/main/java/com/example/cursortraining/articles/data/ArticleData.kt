@@ -9,7 +9,7 @@ data class ArticleData(
     val title: String,
     val description: String?,
     @param:Json(name = "urlToImage")
-    val imageUrl: String,
+    val imageUrl: String?,
     @param:Json(name = "publishedAt")
     val date: String,
 )
