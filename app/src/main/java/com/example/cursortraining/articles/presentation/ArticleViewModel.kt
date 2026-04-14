@@ -11,10 +11,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.temporal.ChronoUnit
 
 @HiltViewModel
 class ArticleViewModel @Inject constructor(
@@ -35,8 +31,7 @@ class ArticleViewModel @Inject constructor(
             runCatching { articleRepository.getArticles() }
                 .onSuccess { data ->
                     val articles = data.mapIndexed { index, item ->
-                        val article = item.toArticle(index)
-                        article.copy(date = formatRelativeDate(item.date))
+                        ArticleModel.mapArticle(item, index)
                     }
                     updateState(ArticleUIState.Success(articles))
                 }
@@ -70,26 +65,6 @@ class ArticleViewModel @Inject constructor(
                 Timber.d(
                     "ArticleUIState emitted: Error | data: message=${state.message}",
                 )
-        }
-    }
-
-    private fun formatRelativeDate(isoDate: String): String {
-        return runCatching {
-            val zoneId = ZoneId.systemDefault()
-            val articleLocalDate: LocalDate =
-                Instant.parse(isoDate).atZone(zoneId).toLocalDate()
-
-            val today: LocalDate = LocalDate.now(zoneId)
-            val daysAgo = ChronoUnit.DAYS.between(articleLocalDate, today).toInt()
-
-            when (daysAgo) {
-                0 -> "Today"
-                1 -> "Yesterday"
-                else -> if (daysAgo > 1) "$daysAgo days ago" else "Today" // future dates
-            }
-        }.getOrElse { throwable ->
-            Timber.w(throwable, "Failed to format relative article date: %s", isoDate)
-            isoDate
         }
     }
 }
