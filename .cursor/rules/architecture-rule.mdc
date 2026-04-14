@@ -1,0 +1,76 @@
+---
+description: Those are the project architecture rules
+alwaysApply: true
+---
+
+# Application Architecture
+
+Important: I do NOT want to include a Domain Layer. Please don’t include a domain layer and Use Cases unless instructed otherwise.
+
+Important: I want the top level packaging to be feature based. So the first package will be articles. Inside the articles package I want only 3 packages: ui, presentation and data.
+
+* UI Layer
+- Single Activity app with Composables
+- Navigation components
+
+* Presentation Layer
+- ViewModels
+- UI State classes
+- Presentation models, e.g., Article
+
+* Data Layer
+- Repository Implementations
+- Remote Data Source (API)
+- Data Models, e.g., ArticleData
+- NO database or local storage need
+- Repository Pattern. No Interface, only repository implementation. Single source of truth. Easy to switch data sources
+
+* MVVM Pattern
+- ViewModels handle UI logic and UI state
+- Composables are responsible only for UI
+- State classes represent UI state
+
+* Dependency Injection
+- We'll use Hilt for dependency injection
+
+* Coroutines & State Flow
+- Coroutines for asynchronous operations
+- Handle API calls and data processing
+- State Flow between ViewModel and UI to manage UI state updates
+
+* Key concepts
+- Clean Architecture
+- Important: Simplicity
+- Separation of concerns
+- Testability
+- Maintainability
+- I don't want you to create any base classes
+
+I want this packaging structure:
+
+app/
+|---articles/
+|   |---data/
+|   |   |---ArticleApi
+|   |   |---ArticleData
+|   |   |---ArticleRepository
+|   |   
+|   |---presentation/
+|   |   |---ArticleViewModel
+|   |   |---ArticleUIState
+|   |   |---Article
+|   |---ui/
+|   |   |---ArticleScreen
+|   |
+|---sources/
+|   |---data/
+|   |   |---Sourcepi
+|   |   |---SourceData
+|   |   |---SourceRepository
+|   |   
+|   |---presentation/
+|   |   |---SourceViewModel
+|   |   |---SourceUIState
+|   |   |---Source
+|   |---ui/
+|   |   |---SourceeScreen

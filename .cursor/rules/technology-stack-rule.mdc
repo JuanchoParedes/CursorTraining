@@ -1,0 +1,46 @@
+---
+description: Those are the project technology stack and third party rules
+alwaysApply: false
+---
+# Technology stack and third party libraries
+
+Below is the tech stack and third party libraries that I want to use:
+
+* Generic
+- Hilt
+- Coroutines
+- Timber
+
+* UI
+- Jetpack Compose
+- Material 3
+- Compose navigation
+- Hilt navigation compose
+- State Flow
+- Coil
+- Hilt
+- Coroutines
+- Timber
+Please always try to find compatible versions of those dependencies and add them to the build gradle files of my app.
+
+
+
+* Presentation
+- State Flow
+- Hilt
+- Coroutines
+- Timber
+Please always try to find compatible versions of those dependencies and add them to the build gradle files of my app.
+
+
+
+* Data
+- Retrofit
+- Moshi
+- Moshi kotlin codegen
+- OKHTTP
+- OkHTTP logging
+- Hilt
+- Coroutines
+- Timber
+Please always try to find compatible versions of those dependencies and add them to the build gradle files of my app.

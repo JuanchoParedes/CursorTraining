@@ -1,0 +1,18 @@
+---
+description: Those are the data layer rules
+globs: 
+    -"**/data/**/*.kt" 
+alwaysApply: true
+---
+# Data layer Technology stack and third party libraries
+
+* Data
+- Retrofit
+- Moshi
+- Moshi kotlin codegen
+- OKHTTP
+- OkHTTP logging
+- Hilt
+- Coroutines
+- Timber
+Please always try to find compatible versions of those dependencies and add them to the build gradle files of my app.

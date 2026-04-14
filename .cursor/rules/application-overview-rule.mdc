@@ -1,0 +1,145 @@
+---
+description: Those are the project overview rules
+alwaysApply: false
+---
+# Project overview:
+You are a senior Android developer
+
+This is an empty Android application.
+
+We are building an MVP native Android application.
+
+Feature number 1. The first screen is going to display a list of articles that are fetched from an API.
+
+Feature number 2. The second screen is going to display a list of sources of the articles that are also fetched from an API.
+
+Feature number 3.  We are going to use AI to summarize the articles for us.
+
+The product is going to contain more features in the future and we want to ble able to accomodate them with our architecture.
+
+We want our architecture to be simple.
+
+Can you suggest a simple architecture to build our app.
+
+Please don't make any changes yet
+
+----
+
+Application Architecture
+
+Important: I do NOT want to include a Domain Layer. Please don’t include a domain layer and Use Cases unless instructed otherwise.
+
+Important: I want the top level packaging to be feature based. So the first package will be articles. Inside the articles package I want only 3 packages: ui, presentation and data.
+
+* UI Layer
+- Single Activity app with Composables
+- Navigation components
+
+* Presentation Layer
+- ViewModels
+- UI State classes
+- Presentation models, e.g., Article
+
+* Data Layer
+- Repository Implementations
+- Remote Data Source (API)
+- Data Models, e.g., ArticleData
+- NO database or local storage need
+- Repository Pattern. No Interface, only repository implementation. Single source of truth. Easy to switch data sources
+
+* MVVM Pattern
+- ViewModels handle UI logic and UI state
+- Composables are responsible only for UI
+- State classes represent UI state
+
+* Dependency Injection
+- We'll use Hilt for dependency injection
+
+* Coroutines & State Flow
+- Coroutines for asynchronous operations
+- Handle API calls and data processing
+- State Flow between ViewModel and UI to manage UI state updates
+
+* Key concepts
+- Clean Architecture
+- Important: Simplicity
+- Separation of concerns
+- Testability
+- Maintainability
+- I don't want you to create any base classes
+
+I want this packaging structure:
+
+app/
+|---articles/
+|   |---data/
+|   |   |---ArticleApi
+|   |   |---ArticleData
+|   |   |---ArticleRepository
+|   |   
+|   |---presentation/
+|   |   |---ArticleViewModel
+|   |   |---ArticleUIState
+|   |   |---Article
+|   |---ui/
+|   |   |---ArticleScreen
+|   |
+|---sources/
+|   |---data/
+|   |   |---Sourcepi
+|   |   |---SourceData
+|   |   |---SourceRepository
+|   |   
+|   |---presentation/
+|   |   |---SourceViewModel
+|   |   |---SourceUIState
+|   |   |---Source
+|   |---ui/
+|   |   |---SourceeScreen
+
+
+---
+
+Technology stack and third party libraries
+
+Below is the tech stack and third party libraries that I want to use:
+
+* Generic
+- Hilt
+- Coroutines
+- Timber
+
+* UI
+- Jetpack Compose
+- Material 3
+- Compose navigation
+- Hilt navigation compose
+- State Flow
+- Coil
+
+* Presentation
+- State Flow
+
+* Data
+- Retrofit
+- Moshi
+- Moshi kotlin codegen
+- OKHTTP
+- OkHTTP logging
+
+
+Please always try to find compatible versions of those dependencies and add them to the build gradle files of my app.
+
+
+----
+
+State of the application after implementing the articles feature and the most important learnings
+
+Paragraph 1 — Scope and stack
+This repo is a single-module Android app (:app) using Kotlin, Jetpack Compose, Material 3, Hilt (with KSP for Hilt and Moshi codegen), Retrofit + Moshi + OkHttp (with logging), Timber, Kotlin coroutines, StateFlow in the ViewModel, Coil for images, and Compose Navigation + hilt-navigation-compose. The Articles flow is wired end-to-end: ArticleApi / ArticleRepository call NewsAPI-style JSON (top-headlines under https://newsapi.org/v2/), ArticleModel.mapArticle maps ArticleData to presentation Article (including relative date strings), ArticleViewModel exposes ArticleUIState (Loading / Success / Error) with a fixed user-facing error string and technical errors logged, and ArticleScreen renders loading, error (with retry), and a list with images. MainActivity is @AndroidEntryPoint and shows ArticleScreen; CursorTrainingApplication is @HiltAndroidApp and plants Timber.DebugTree in debug; AndroidManifest includes INTERNET and the custom Application class. NEWS_API_KEY is supplied via root gradle.properties into BuildConfig.NEWS_API_KEY.
+
+Paragraph 2 — Build and configuration facts
+The project uses AGP 9.1 with android.builtInKotlin=false and android.newDsl=false in gradle.properties so the standalone Kotlin Android plugin and the Hilt Gradle plugin work together; the app module applies kotlin.android, kotlin.compose, Hilt, and KSP. app/build.gradle.kts sets kotlin { jvmToolchain(11) } to match Java 11 compile options. ./gradlew assembleDebug has completed successfully after the changes described in this thread. Gradle output has included deprecation warnings for those two Android properties and for the android { } DSL in app/build.gradle.kts, and a Moshi-related note about Kapt in codegen during the Java compile step; the configure step prints AGP built-in Kotlin / new DSL deprecation warnings.
+
+Paragraph 3 — Files, pitfalls, and how to work safely
+Key locations: version catalog gradle/libs.versions.toml; root build.gradle.kts (plugin aliases with apply false); app/build.gradle.kts (plugins, android block including buildConfig and debug/release NEWS_API_KEY fields, dependencies grouped by comment); gradle.properties (JVM args, Kotlin style, Android flags, NEWS_API_KEY); app/src/main/AndroidManifest.xml; CursorTrainingApplication.kt; MainActivity.kt; articles/data/ (ArticleApi, ArticleData, ArticleSourceData, ArticlesResponse, ArticleRepository); articles/presentation/ (Article.kt with ArticleModel, ArticleUIState, ArticleViewModel); articles/ui/ArticleScreen.kt; di/NetworkModule.kt; res/values/strings.xml for article-related copy. Avoid surfacing raw exception messages in the UI (the ViewModel uses a fixed string for errors); keep API keys out of source by using gradle.properties / BuildConfig. To build, use ./gradlew assembleDebug from the project root (on Windows PowerShell, chain commands with ;, not &&, if the shell rejects &&).

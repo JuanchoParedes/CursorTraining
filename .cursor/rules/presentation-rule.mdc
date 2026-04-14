@@ -1,0 +1,17 @@
+---
+description: Those are the project presentation rules
+globs: 
+    -"**/presentation/**/*.kt" 
+alwaysApply: true
+---
+# Presentation layer Technology stack and third party libraries
+
+Below is the tech stack and third party libraries that I want to use:
+
+* Presentation
+- State Flow
+- Hilt
+- Coroutines
+- Timber
+Please always try to find compatible versions of those dependencies and add them to the build gradle files of my app.
+
