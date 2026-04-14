@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cursortraining.articles.data.ArticleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,9 +34,14 @@ class ArticleViewModel @Inject constructor(
                     updateState(ArticleUIState.Success(articles))
                 }
                 .onFailure { throwable ->
-                    val message = throwable.message ?: throwable::class.simpleName ?: "Unknown error"
+                    if (throwable is CancellationException) throw throwable
+
                     Timber.e(throwable, "Failed to load articles")
-                    updateState(ArticleUIState.Error(message))
+                    updateState(
+                        ArticleUIState.Error(
+                            "Something went wrong, please try again later",
+                        ),
+                    )
                 }
         }
     }
