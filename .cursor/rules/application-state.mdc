@@ -12,3 +12,6 @@ The project uses AGP 9.1 with android.builtInKotlin=false and android.newDsl=fal
 
 Paragraph 3 — Files, pitfalls, and how to work safely
 Key locations: version catalog gradle/libs.versions.toml; root build.gradle.kts (plugin aliases with apply false); app/build.gradle.kts (plugins, android block including buildConfig and debug/release NEWS_API_KEY fields, dependencies grouped by comment); gradle.properties (JVM args, Kotlin style, Android flags, NEWS_API_KEY); app/src/main/AndroidManifest.xml; CursorTrainingApplication.kt; MainActivity.kt; articles/data/ (ArticleApi, ArticleData, ArticleSourceData, ArticlesResponse, ArticleRepository); articles/presentation/ (Article.kt with ArticleModel, ArticleUIState, ArticleViewModel); articles/ui/ArticleScreen.kt; di/NetworkModule.kt; res/values/strings.xml for article-related copy. Avoid surfacing raw exception messages in the UI (the ViewModel uses a fixed string for errors); keep API keys out of source by using gradle.properties / BuildConfig. To build, use ./gradlew assembleDebug from the project root (on Windows PowerShell, chain commands with ;, not &&, if the shell rejects &&).
+
+
+We have created a NetworkModule file under the /di/ package that is going to provide all the PI dependencies, like ArticleApi, SourceAPi and all the Apis in the future.
