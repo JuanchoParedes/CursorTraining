@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.cursortraining.articles.ui.ArticleScreen
 import com.example.cursortraining.ui.theme.CursorTrainingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CursorTrainingTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    ArticleScreen()
+                    MainAppNavigation()
                 }
             }
         }
