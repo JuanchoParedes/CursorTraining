@@ -2,6 +2,7 @@ package com.example.cursortraining.di
 
 import com.example.cursortraining.BuildConfig
 import com.example.cursortraining.articles.data.ArticleApi
+import com.example.cursortraining.sources.data.SourceApi
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -64,4 +65,9 @@ object NetworkModule {
     @Singleton
     fun provideArticleApi(retrofit: Retrofit): ArticleApi =
         retrofit.create(ArticleApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSourceApi(retrofit: Retrofit): SourceApi =
+        retrofit.create(SourceApi::class.java)
 }

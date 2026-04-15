@@ -6,4 +6,7 @@
     <string name="articles_retry">Retry</string>
     <string name="articles_empty">No articles to show.</string>
     <string name="article_image_content_description">Image for article: %1$s</string>
+    <string name="sources_title">Sources</string>
+    <string name="sources_retry">Retry</string>
+    <string name="sources_empty">No sources to show.</string>
 </resources>
