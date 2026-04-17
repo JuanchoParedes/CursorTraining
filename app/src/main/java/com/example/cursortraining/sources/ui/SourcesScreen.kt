@@ -70,17 +70,19 @@ fun SourcesScreenContent(
                         fontWeight = FontWeight.SemiBold,
                     )
                 },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    scrolledContainerColor = MaterialTheme.colorScheme.surface,
-                    containerColor = MaterialTheme.colorScheme.surface,
-                ),
+                colors =
+                    TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        scrolledContainerColor = MaterialTheme.colorScheme.surface,
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
             )
         },
     ) { innerPadding ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
         ) {
             when (uiState) {
                 SourceUIState.Loading -> {
@@ -93,9 +95,10 @@ fun SourcesScreenContent(
 
                 is SourceUIState.Error -> {
                     Column(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(horizontal = 24.dp),
+                        modifier =
+                            Modifier
+                                .align(Alignment.Center)
+                                .padding(horizontal = 24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                     ) {
@@ -150,14 +153,16 @@ private fun SourceListItem(
         modifier = modifier.fillMaxWidth(),
         shape = shape,
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-        ),
+        colors =
+            CardDefaults.elevatedCardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            ),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 14.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
@@ -183,19 +188,25 @@ private fun SourceListItem(
 @Preview(showBackground = true)
 @Composable
 private fun SourcesScreenContentPreview() {
-    val sample = Source(
-        id = "cnn",
-        name = "CNN",
-        description = "Breaking news from around the world.",
-    )
+    val sample =
+        Source(
+            id = "cnn",
+            name = "CNN",
+            description = "Breaking news from around the world.",
+        )
     CursorTrainingTheme {
         SourcesScreenContent(
-            uiState = SourceUIState.Success(
-                listOf(
-                    sample,
-                    sample.copy(id = "bbc", name = "BBC News", description = "British public broadcaster."),
+            uiState =
+                SourceUIState.Success(
+                    listOf(
+                        sample,
+                        sample.copy(
+                            id = "bbc",
+                            name = "BBC News",
+                            description = "British public broadcaster.",
+                        ),
+                    ),
                 ),
-            ),
             onRetry = {},
         )
     }

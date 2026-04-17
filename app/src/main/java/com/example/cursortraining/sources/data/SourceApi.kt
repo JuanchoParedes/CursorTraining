@@ -4,7 +4,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface SourceApi {
-
     @GET("top-headlines/sources")
     suspend fun getSources(
         @Query("country") country: String,

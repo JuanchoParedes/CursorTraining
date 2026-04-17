@@ -24,8 +24,8 @@ import com.example.cursortraining.articles.ui.ArticleScreen
 import com.example.cursortraining.sources.ui.SourcesScreen
 
 private object MainDestinations {
-    const val Articles = "articles"
-    const val Sources = "sources"
+    const val ARTICLES = "articles"
+    const val SOURCES = "sources"
 }
 
 private enum class MainTab(
@@ -33,8 +33,8 @@ private enum class MainTab(
     val labelRes: Int,
     val icon: ImageVector,
 ) {
-    Articles(MainDestinations.Articles, R.string.nav_articles, Icons.Outlined.Article),
-    Sources(MainDestinations.Sources, R.string.nav_sources, Icons.Outlined.Source),
+    Articles(MainDestinations.ARTICLES, R.string.nav_articles, Icons.Outlined.Article),
+    Sources(MainDestinations.SOURCES, R.string.nav_sources, Icons.Outlined.Source),
 }
 
 @Composable
@@ -74,13 +74,13 @@ fun MainAppNavigation(modifier: Modifier = Modifier) {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = MainDestinations.Articles,
+            startDestination = MainDestinations.ARTICLES,
             modifier = Modifier.padding(innerPadding),
         ) {
-            composable(MainDestinations.Articles) {
+            composable(MainDestinations.ARTICLES) {
                 ArticleScreen()
             }
-            composable(MainDestinations.Sources) {
+            composable(MainDestinations.SOURCES) {
                 SourcesScreen()
             }
         }

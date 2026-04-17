@@ -19,7 +19,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     private const val NEWS_API_BASE_URL = "https://newsapi.org/v2/"
 
     @Provides
@@ -34,13 +33,15 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
-        val logging = HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.BODY
-            } else {
-                HttpLoggingInterceptor.Level.NONE
+        val logging =
+            HttpLoggingInterceptor().apply {
+                level =
+                    if (BuildConfig.DEBUG) {
+                        HttpLoggingInterceptor.Level.BODY
+                    } else {
+                        HttpLoggingInterceptor.Level.NONE
+                    }
             }
-        }
         return OkHttpClient.Builder()
             .addInterceptor(logging)
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -63,11 +64,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideArticleApi(retrofit: Retrofit): ArticleApi =
-        retrofit.create(ArticleApi::class.java)
+    fun provideArticleApi(retrofit: Retrofit): ArticleApi = retrofit.create(ArticleApi::class.java)
 
     @Provides
     @Singleton
-    fun provideSourceApi(retrofit: Retrofit): SourceApi =
-        retrofit.create(SourceApi::class.java)
+    fun provideSourceApi(retrofit: Retrofit): SourceApi = retrofit.create(SourceApi::class.java)
 }

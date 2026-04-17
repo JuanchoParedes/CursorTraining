@@ -9,10 +9,13 @@ data class Source(
 )
 
 object SourceModel {
-
-    fun mapSource(sourceData: SourceData, index: Int): Source {
-        val stableId = sourceData.id.takeIf { it.isNotBlank() }
-            ?: "${sourceData.name}_$index"
+    fun mapSource(
+        sourceData: SourceData,
+        index: Int,
+    ): Source {
+        val stableId =
+            sourceData.id.takeIf { it.isNotBlank() }
+                ?: "${sourceData.name}_$index"
         return Source(
             id = stableId,
             name = sourceData.name,

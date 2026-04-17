@@ -18,10 +18,13 @@ data class Article(
 )
 
 object ArticleModel {
-
-    fun mapArticle(articleData: ArticleData, index: Int): Article {
-        val stableId = articleData.source.id?.takeIf { it.isNotBlank() }
-            ?: "${articleData.source.name}_${articleData.date}_$index"
+    fun mapArticle(
+        articleData: ArticleData,
+        index: Int,
+    ): Article {
+        val stableId =
+            articleData.source.id?.takeIf { it.isNotBlank() }
+                ?: "${articleData.source.name}_${articleData.date}_$index"
         return Article(
             id = stableId,
             sourceId = articleData.source.id,

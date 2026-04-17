@@ -13,29 +13,29 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class SourceViewModel @Inject constructor(
-    private val sourceRepository: SourceRepository,
-) : ViewModel() {
+class SourceViewModel
+    @Inject
+    constructor(
+        private val sourceRepository: SourceRepository,
+    ) : ViewModel() {
+        private val _uiState = MutableStateFlow<SourceUIState>(SourceUIState.Loading)
+        val uiState: StateFlow<SourceUIState> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow<SourceUIState>(SourceUIState.Loading)
-    val uiState: StateFlow<SourceUIState> = _uiState.asStateFlow()
+        init {
+            logEmittedState(_uiState.value)
+            loadSources()
+        }
 
-    init {
-        logEmittedState(_uiState.value)
-        loadSources()
-    }
-
-    fun loadSources() {
-        viewModelScope.launch {
-            updateState(SourceUIState.Loading)
-            runCatching { sourceRepository.getSources() }
-                .onSuccess { data ->
-                    val sources = data.mapIndexed { index, item ->
-                        SourceModel.mapSource(item, index)
-                    }
+        fun loadSources() {
+            viewModelScope.launch {
+                updateState(SourceUIState.Loading)
+                runCatching { sourceRepository.getSources() }.onSuccess { data ->
+                    val sources =
+                        data.mapIndexed { index, item ->
+                            SourceModel.mapSource(item, index)
+                        }
                     updateState(SourceUIState.Success(sources))
-                }
-                .onFailure { throwable ->
+                }.onFailure { throwable ->
                     if (throwable is CancellationException) throw throwable
 
                     Timber.e(throwable, "Failed to load sources")
@@ -45,26 +45,27 @@ class SourceViewModel @Inject constructor(
                         ),
                     )
                 }
+            }
+        }
+
+        private fun updateState(state: SourceUIState) {
+            _uiState.value = state
+            logEmittedState(state)
+        }
+
+        private fun logEmittedState(state: SourceUIState) {
+            when (state) {
+                is SourceUIState.Loading -> Timber.d("SourceUIState emitted: Loading | data: none")
+
+                is SourceUIState.Success ->
+                    Timber.d(
+                        "SourceUIState emitted: Success | data: count=${state.sources.size}, sources=${state.sources}",
+                    )
+
+                is SourceUIState.Error ->
+                    Timber.d(
+                        "SourceUIState emitted: Error | data: message=${state.message}",
+                    )
+            }
         }
     }
-
-    private fun updateState(state: SourceUIState) {
-        _uiState.value = state
-        logEmittedState(state)
-    }
-
-    private fun logEmittedState(state: SourceUIState) {
-        when (state) {
-            is SourceUIState.Loading ->
-                Timber.d("SourceUIState emitted: Loading | data: none")
-            is SourceUIState.Success ->
-                Timber.d(
-                    "SourceUIState emitted: Success | data: count=${state.sources.size}, sources=${state.sources}",
-                )
-            is SourceUIState.Error ->
-                Timber.d(
-                    "SourceUIState emitted: Error | data: message=${state.message}",
-                )
-        }
-    }
-}

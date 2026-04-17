@@ -3,7 +3,7 @@ package com.example.cursortraining.articles.data
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true,)
+@JsonClass(generateAdapter = true)
 data class ArticleData(
     val source: ArticleSourceData,
     val title: String,

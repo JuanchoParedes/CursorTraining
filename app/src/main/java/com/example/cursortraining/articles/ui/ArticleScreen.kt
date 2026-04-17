@@ -88,17 +88,19 @@ fun ArticleScreenContent(
                         fontWeight = FontWeight.SemiBold,
                     )
                 },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    scrolledContainerColor = MaterialTheme.colorScheme.surface,
-                    containerColor = MaterialTheme.colorScheme.surface,
-                ),
+                colors =
+                    TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        scrolledContainerColor = MaterialTheme.colorScheme.surface,
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
             )
         },
     ) { innerPadding ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
         ) {
             when (uiState) {
                 ArticleUIState.Loading -> {
@@ -111,9 +113,10 @@ fun ArticleScreenContent(
 
                 is ArticleUIState.Error -> {
                     Column(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(horizontal = 24.dp),
+                        modifier =
+                            Modifier
+                                .align(Alignment.Center)
+                                .padding(horizontal = 24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                     ) {
@@ -172,9 +175,10 @@ private fun ArticleListItem(
         modifier = modifier.fillMaxWidth(),
         shape = shape,
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-        ),
+        colors =
+            CardDefaults.elevatedCardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            ),
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             ArticleImageHeader(
@@ -228,21 +232,24 @@ private fun ArticleImageHeader(
 ) {
     val model = article.imageUrl?.takeIf { it.isNotBlank() }
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .clip(shape),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .clip(shape),
     ) {
         if (model != null) {
             AsyncImage(
-                model = ImageRequest.Builder(context)
-                    .data(model)
-                    .crossfade(300)
-                    .build(),
-                contentDescription = stringResource(
-                    R.string.article_image_content_description,
-                    article.title,
-                ),
+                model =
+                    ImageRequest.Builder(context)
+                        .data(model)
+                        .crossfade(300)
+                        .build(),
+                contentDescription =
+                    stringResource(
+                        R.string.article_image_content_description,
+                        article.title,
+                    ),
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop,
                 placeholder = placeholderPainter,
@@ -250,9 +257,10 @@ private fun ArticleImageHeader(
             )
         } else {
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.surfaceVariant),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.surfaceVariant),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
@@ -277,18 +285,25 @@ private fun formatArticleDate(isoDate: String): String =
 @Preview(showBackground = true)
 @Composable
 private fun ArticleScreenContentPreview() {
-    val sample = Article(
-        id = "1",
-        sourceId = "cnn",
-        sourceName = "CNN",
-        title = "Sample headline for preview",
-        description = "A short description that demonstrates how body text wraps in the list item layout.",
-        imageUrl = "",
-        date = "2026-02-04T06:59:45Z",
-    )
+    val sample =
+        Article(
+            id = "1",
+            sourceId = "cnn",
+            sourceName = "CNN",
+            title = "Sample headline for preview",
+            description = "A short description that demonstrates how body text wraps in the list item layout.",
+            imageUrl = "",
+            date = "2026-02-04T06:59:45Z",
+        )
     CursorTrainingTheme {
         ArticleScreenContent(
-            uiState = ArticleUIState.Success(listOf(sample, sample.copy(id = "2", title = "Second story"))),
+            uiState =
+                ArticleUIState.Success(
+                    listOf(
+                        sample,
+                        sample.copy(id = "2", title = "Second story"),
+                    ),
+                ),
             onRetry = {},
         )
     }
