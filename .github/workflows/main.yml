@@ -26,11 +26,8 @@ jobs:
         - name: Build with Gradle
           run: ./gradlew assembleDebug
          
-        - name: run KtlintCheck
-          run: ./gradlew ktlintCheck
-
-        - name: Run Detekt
-          run: ./gradlew detekt
+        - name: Run Quality Checks
+          run: ./gradlew ktlintCheck detekt
 
         - name: Run Unit tests
           run: ./gradlew testDebugUnitTest
